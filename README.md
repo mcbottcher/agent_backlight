@@ -8,38 +8,32 @@ His mission is to help me learn how to use an MCP server and client, and how to 
 ```
 agent_backlight/
 ├── mcp_server/   # MCP server — exposes backlight control over stdio
-├── mcp_client/   # MCP client — connects to the server and reads/sets brightness
-└── launch.sh     # Launcher — runs the client (which spawns the server internally)
+└── mcp_client/   # Chatbot — talks to Claude, which controls the backlight via MCP
 ```
 
 ## Quickstart
 
-### 1. Set up the server
+### 1. Configure the server
 
 ```bash
 cd mcp_server
 cp .env.example .env       # set LED_NAME to your device
-poetry install
 ```
 
-See `mcp_server/README.md` for details on finding your LED device name.
+See `mcp_server/README.md` for details on finding your LED device name and configuring permissions.
 
 ### 2. Set up the client
 
 ```bash
-cd mcp_client
-cp .env.example .env       # set SERVER_PYTHON to the server's virtualenv Python
-poetry install
+cd ../mcp_client
+cp .env.example .env       # set ANTHROPIC_API_KEY
+poetry install             # also installs the server package
 ```
-
-See `mcp_client/README.md` for details on finding the right Python path.
 
 ### 3. Run
 
-From the repo root:
-
 ```bash
-./launch.sh
+poetry run backlight-client
 ```
 
-This launches the client, which spawns the server as a subprocess and communicates with it over stdio.
+The chatbot spawns the MCP server as a subprocess and connects Claude to it. You can then chat naturally — ask about the current brightness, set it, turn it off, etc.

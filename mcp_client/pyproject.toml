@@ -2,13 +2,12 @@
 name = "backlight-client"
 version = "0.1.0"
 description = "MCP client for controlling keyboard backlight"
-authors = [
-    {name = "Mikkel Caschetto-Bottcher",email = "mcb@emlogic.no"}
-]
+authors = []
 requires-python = "^3.10"
 dependencies = [
     "mcp (>=1.26.0,<2.0.0)",
-    "python-dotenv (>=1.2.2,<2.0.0)"
+    "python-dotenv (>=1.2.2,<2.0.0)",
+    "anthropic[mcp] (>=0.88.0,<0.89.0)"
 ]
 
 [project.scripts]
@@ -16,6 +15,9 @@ backlight-client = "backlight_client.__main__:main"
 
 [tool.poetry]
 packages = [{include = "backlight_client", from = "src"}]
+
+[tool.poetry.dependencies]
+backlight-mcp = {path = "../mcp_server", develop = true}
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
